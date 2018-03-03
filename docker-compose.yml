@@ -1,0 +1,45 @@
+version: '3'
+
+services:
+  examplepage:
+    image: nginx:alpine
+    container_name: examplepage
+    networks:
+      - webauth
+
+  testpage-ldap-auth-proxy:
+    image: h3nrik/nginx-ldap
+    container_name: testpage-auth
+    networks:
+      - web
+      - webauth
+      - ldap
+    volumes:
+      - ./nginx-ldap-auth-proxy.conf:/nginx.conf:ro
+    ports:
+      - 80:80
+
+  openldap:
+    image: dinkel/openldap
+    container_name: openldap
+    networks:
+      - ldap
+    environment:
+      - SLAPD_PASSWORD=secret
+      - SLAPD_DOMAIN=example.com
+
+  ldapadmin:
+    image: dinkel/phpldapadmin
+    container_name: ldapadmin
+    ports:
+      - 8080:80
+    networks:
+      - ldap
+      - web
+
+networks:
+  web:
+  ldap:
+    internal: true
+  webauth:
+    internal: true
