@@ -8,14 +8,15 @@ services:
       - webauth
 
   testpage-ldap-auth-proxy:
-    image: h3nrik/nginx-ldap
+    image: nginx-ldap
+    build: ./nginx-ldap
     container_name: testpage-auth
     networks:
       - web
       - webauth
       - ldap
     volumes:
-      - ./nginx-ldap-auth-proxy.conf:/nginx.conf:ro
+      - ./nginx-ldap-auth-proxy.conf:/etc/nginx/nginx.conf:ro
     ports:
       - 80:80
 

@@ -4,6 +4,10 @@ The goal is to have one container provide LDAP authentication for access to the 
 
 ## Usage
 
+Build the nginx-ldap image:
+
+    docker-compose build
+
 Bring up LDAP, phpldapadmin, auth-proxy and example-page with compose:
 
     docker-compose up -d
@@ -21,6 +25,5 @@ To configure access rights, edit `nginx-ldap-auth-proxy.conf` to your liking. Th
 
 ## Credits
 
- - __Henrik Sachse__ [nginx-ldap image](https://github.com/g17/nginx-ldap/)
  - __Valery Komarov__ [nginx ldap auth module](https://github.com/kvspb/nginx-auth-ldap)
  - __dinkel__ [openldap](https://github.com/dinkel/docker-openldap) and [phpldapadmin](https://github.com/dinkel/docker-phpldapadmin) images
